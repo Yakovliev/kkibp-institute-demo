@@ -4,7 +4,7 @@ const path = require('path');
 const root = path.resolve(__dirname, '..');
 const tmp = '/tmp';
 const sourceHost = 'https://kkibp.edu.ua';
-const publicBase = 'https://yakovliev.github.io/kkibp-college-demo/';
+const publicBase = 'https://yakovliev.github.io/kkibp-institute-demo/';
 
 const articles = [
   {

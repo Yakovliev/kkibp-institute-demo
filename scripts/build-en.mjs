@@ -5,7 +5,7 @@ const scriptVersion = 'college-subpages-20260630';
 const sectionFiles = ['college.html', 'admissions.html', 'students.html', 'alumni.html', 'science.html', 'library.html'];
 const shellOnlyFiles = ['index.html', 'news.html'];
 const allFiles = [...shellOnlyFiles, ...sectionFiles];
-const siteBaseUrl = 'https://yakovliev.github.io/kkibp-college-demo';
+const siteBaseUrl = 'https://yakovliev.github.io/kkibp-institute-demo';
 
 const pageMeta = {
   'index.html': {
