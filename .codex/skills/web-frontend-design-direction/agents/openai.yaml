@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Frontend Design Direction"
+  short_description: "Shape visual direction for web interfaces"
+  default_prompt: "Use $web-frontend-design-direction to propose or refine the visual direction for this web page or app."

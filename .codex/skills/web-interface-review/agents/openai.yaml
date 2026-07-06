@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Interface Review"
+  short_description: "Audit accessibility and frontend robustness"
+  default_prompt: "Use $web-interface-review to review changed HTML, CSS, and JavaScript for interface quality."

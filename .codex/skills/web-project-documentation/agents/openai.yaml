@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Project Documentation"
+  short_description: "Record decisions, specs, and experiment notes"
+  default_prompt: "Use $web-project-documentation to record accepted decisions, experiments, and technical-spec notes for this web project."

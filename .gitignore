@@ -1,0 +1,9 @@
+.DS_Store
+.claude/
+.idea/
+.codex-*.html
+.codex-*.mjs
+node_modules/
+playwright-report/
+test-results/
+design-lab/

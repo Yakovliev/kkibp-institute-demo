@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Design Variants"
+  short_description: "Create and compare responsive design variants"
+  default_prompt: "Use $web-design-variants to create responsive design variants for a web page or section."

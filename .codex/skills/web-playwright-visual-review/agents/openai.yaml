@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Playwright Visual Review"
+  short_description: "Verify rendered UI with Playwright"
+  default_prompt: "Use $web-playwright-visual-review to verify responsive layout, interactions, browser logs, or screenshots."

@@ -1,0 +1,26 @@
+{
+  "name": "kkibp-institute-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Статична демоверсія сайту Київського кооперативного інституту бізнесу і права, підготовлена на основі демоверсії коледжу.",
+  "scripts": {
+    "test": "playwright test",
+    "test:playwright": "playwright test",
+    "playwright:install": "playwright install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yakovliev/kkibp-institute-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Yakovliev/kkibp-institute-demo/issues"
+  },
+  "homepage": "https://github.com/Yakovliev/kkibp-institute-demo#readme",
+  "devDependencies": {
+    "@playwright/test": "1.61.1"
+  }
+}

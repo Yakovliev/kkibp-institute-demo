@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Прев’ю сайту коледжу – Мобільний · 390 × 844</title>
+  <style>
+*{box-sizing:border-box}body{margin:0;background:#e7ebf0;font-family:system-ui,sans-serif;color:#172033}.toolbar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:14px 20px;background:#0b2345;color:white}.toolbar strong{font-size:14px}.toolbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.toolbar a{color:#fff;text-decoration:none;padding:7px 11px;border:1px solid rgba(255,255,255,.3);border-radius:8px;font-size:12px}.toolbar a.is-active{background:#f2b84b;border-color:#f2b84b;color:#06162d;font-weight:800}.stage{padding:30px;overflow:auto}.device{margin:auto;background:#151a22;padding:14px;border-radius:26px;box-shadow:0 26px 70px rgba(0,0,0,.25)}.screen{background:white;overflow:hidden;border-radius:14px}.screen iframe{display:block;border:0;background:white}.laptop{width:1468px}.laptop iframe{width:1440px;height:900px}.tablet{width:848px}.tablet iframe{width:820px;height:1080px}.mobile{width:418px}.mobile iframe{width:390px;height:844px}.hint{max-width:720px;margin:0 auto 20px;color:#5c6674;font-size:13px;text-align:center}@media(max-width:900px){.stage{padding:18px}.device{margin:0}.toolbar{flex-wrap:wrap}}
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <strong>Прев’ю сайту коледжу: Мобільний · 390 × 844</strong>
+    <div class="toolbar-actions">
+      <a href="?lang=uk" data-lang-link="uk">UA</a>
+      <a href="?lang=en" data-lang-link="en">EN</a>
+      <a href="../index.html?v=multilingual-20260626-mobile-language" id="open-site" target="_blank">Відкрити окремо</a>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="device mobile"><div class="screen"><iframe id="site-preview" src="../index.html?v=multilingual-20260626-mobile-language" title="Прев’ю сайту коледжу для Мобільний · 390 × 844"></iframe></div></div>
+  </div>
+  <script>
+    const lang = new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'uk';
+    const target = lang === 'en' ? '../en/index.html?v=multilingual-20260626-mobile-language' : '../index.html?v=multilingual-20260626-mobile-language';
+    document.querySelector('#site-preview').src = target;
+    document.querySelector('#open-site').href = target;
+    document.querySelectorAll('[data-lang-link]').forEach(link => {
+      const linkLang = link.dataset.langLink;
+      link.href = `?lang=${linkLang}`;
+      link.classList.toggle('is-active', linkLang === lang);
+    });
+  </script>
+</body>
+</html>
