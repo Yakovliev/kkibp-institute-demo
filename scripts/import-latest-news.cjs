@@ -253,7 +253,7 @@ function extractArticle(entry) {
 
 function updateMeta(html, article) {
   const description = escapeHtml(article.excerpt);
-  const pageTitle = escapeHtml(`${article.title} – Новини – Економіко-правовий фаховий коледж ККІБП`);
+  const pageTitle = escapeHtml(`${article.title} – Новини – Приватний заклад "Київський кооперативний інститут бізнесу і права"`);
   const absoluteUrl = `${publicBase}${article.url}`;
   const absoluteImage = article.image ? `${publicBase}${article.image}` : `${publicBase}assets/logo_small.gif`;
   const imageType = article.image?.endsWith('.png') ? 'image/png' : 'image/jpeg';
@@ -284,7 +284,7 @@ function buildArticleMain(article, allArticles) {
   ].filter(Boolean).join('');
 
   return `<main id="main"><section class="page-hero page-hero--solo news-article-hero"><div class="container"><nav class="breadcrumbs" aria-label="Хлібні крихти"><a href="index.html">Головна</a><a href="news.html">Новини</a><span>${escapeHtml(article.title)}</span></nav><div class="page-hero-grid"><div class="page-hero-copy"><span class="eyebrow eyebrow--light">Новина</span><h1>${escapeHtml(article.title)}</h1><p>${escapeHtml(article.excerpt)}</p></div></div></div></section>
-<section class="section news-article-section"><div class="container news-article-layout"><article class="news-article-card"><div class="news-article-meta"><span>Новини коледжу</span><time datetime="${escapeHtml(article.loadedAt)}">${escapeHtml(article.publishedLabel)}</time></div><div class="news-article-body">${article.body}</div></article><aside class="news-article-aside" aria-label="Навігація новиною"><a class="news-article-back" href="news.html">Усі новини</a>${articleNav ? `<div class="news-article-neighbors">${articleNav}</div>` : ''}</aside></div></section>
+<section class="section news-article-section"><div class="container news-article-layout"><article class="news-article-card"><div class="news-article-meta"><span>Новини Інституту</span><time datetime="${escapeHtml(article.loadedAt)}">${escapeHtml(article.publishedLabel)}</time></div><div class="news-article-body">${article.body}</div></article><aside class="news-article-aside" aria-label="Навігація новиною"><a class="news-article-back" href="news.html">Усі новини</a>${articleNav ? `<div class="news-article-neighbors">${articleNav}</div>` : ''}</aside></div></section>
 </main>`;
 }
 

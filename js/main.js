@@ -253,30 +253,32 @@
     ? [
         ['Admission Rules 2026', 'Applicants', 'admissions/admission-info/admission-rules.html'],
         ['Applicant Calendar', 'Applicants', 'admissions/admission-info/important-dates.html'],
-        ['Educational Programs', 'Learning', 'admissions/educational-programs/educational-programs.html'],
+        ['Educational Programs', 'Learning', 'admissions.html#educational-programs'],
         ['Class Schedule', 'Students', 'students/general-info/class-schedule.html'],
         ['Elective Disciplines Catalog', 'Students', 'students/general-info/elective-components-catalog.html'],
         ['Psychological Service', 'Support', 'students/social-support/psychological-service.html'],
-        ['Career Center', 'Opportunities', 'college/activity/career-center.html'],
+        ['Professional Career Development Center', 'Opportunities', 'institute/activity/professional-career-development-center.html'],
         ['Electronic Library Catalog', 'Library', 'library/book-fund/electronic-library.html'],
         ['Academic Integrity', 'Research', 'science/academic-integrity/official-documents-recommendations.html'],
+        ['Young Scientists Council', 'Research', 'science/general-info/young-scientists-council.html'],
         ['Research Clubs', 'Research', 'science/student-science/research-clubs.html'],
-        ['College Contacts', 'College', 'college/general-info/contacts.html'],
-        ['Public Information', 'College', 'college/main-info/public-information.html']
+        ['Institute Contacts', 'Institute', 'institute/general-info/contacts.html'],
+        ['Public Information', 'Institute', 'institute/main-info/public-information.html']
       ]
     : [
         ['Правила прийому 2026', 'Абітурієнту', 'admissions/admission-info/admission-rules.html'],
         ['Календар вступника', 'Абітурієнту', 'admissions/admission-info/important-dates.html'],
-        ['Освітні програми', 'Навчання', 'admissions/educational-programs/educational-programs.html'],
+        ['Освітні програми', 'Навчання', 'admissions.html#educational-programs'],
         ['Розклад занять', 'Студенту', 'students/general-info/class-schedule.html'],
         ['Каталог вибіркових дисциплін', 'Студенту', 'students/general-info/elective-components-catalog.html'],
         ['Психологічна служба', 'Підтримка', 'students/social-support/psychological-service.html'],
-        ['Центр кар’єри', 'Можливості', 'college/activity/career-center.html'],
+        ['Центр розвитку професійної кар’єри', 'Можливості', 'institute/activity/professional-career-development-center.html'],
         ['Електронний каталог бібліотеки', 'Бібліотека', 'library/book-fund/electronic-library.html'],
         ['Академічна доброчесність', 'Наука', 'science/academic-integrity/official-documents-recommendations.html'],
+        ['Рада молодих вчених', 'Наука', 'science/general-info/young-scientists-council.html'],
         ['Наукові гуртки', 'Наука', 'science/student-science/research-clubs.html'],
-        ['Контакти коледжу', 'Коледж', 'college/general-info/contacts.html'],
-        ['Публічна інформація', 'Коледж', 'college/main-info/public-information.html']
+        ['Контакти Інституту', 'Інститут', 'institute/general-info/contacts.html'],
+        ['Публічна інформація', 'Інститут', 'institute/main-info/public-information.html']
       ];
 
   const openSearch = () => {

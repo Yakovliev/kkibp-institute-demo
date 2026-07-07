@@ -26,7 +26,7 @@ const scenarios = [
     url: '/index.html',
     screenshot: 'viewport',
     prepare: async (page) => {
-      await page.getByRole('button', { name: /Коледж/ }).first().click();
+      await page.getByRole('button', { name: /Інститут/ }).first().click();
       await page.locator('#menu-0').waitFor({ state: 'visible' });
     }
   },
@@ -90,7 +90,7 @@ const scenarios = [
     url: '/news-4873-rozvytok-tsyfrovykh-kompetentnostei-vykladachi-ta-zdobuvachi-osvity-mahisterskoi-opp-komertsiia-ta-torhivlia-uspishno-zavershyly-pidvyshchennia-kvalifikatsii-u-mezhakh-proiektu-prof2it.html',
     selector: '.news-article-sdg'
   },
-  { file: 'section-hero-guide-laptop.png', viewport: 'laptop', url: '/college.html', selector: '.page-hero' },
+  { file: 'section-hero-guide-laptop.png', viewport: 'laptop', url: '/institute.html', selector: '.page-hero' },
   { file: 'section-admissions-hero-laptop.png', viewport: 'laptop', url: '/admissions.html', selector: '.page-hero' },
   { file: 'section-students-hero-laptop.png', viewport: 'laptop', url: '/students.html', selector: '.page-hero' },
   { file: 'section-alumni-hero-laptop.png', viewport: 'laptop', url: '/alumni.html', selector: '.page-hero' },
@@ -101,7 +101,7 @@ const scenarios = [
   { file: 'section-alumni-cards-mobile.png', viewport: 'mobile', url: '/alumni.html', selector: '#community' },
   { file: 'section-science-cards-mobile.png', viewport: 'mobile', url: '/science.html', selector: '#academic-integrity' },
   { file: 'section-cards-mobile.png', viewport: 'mobile', url: '/library.html', selector: '#library-about' },
-  { file: 'section-college-contact-laptop.png', viewport: 'laptop', url: '/college.html', selector: '#contacts .contact-card' },
+  { file: 'section-institute-contact-laptop.png', viewport: 'laptop', url: '/institute.html', selector: '#contacts .contact-card' },
   { file: 'section-admissions-contact-mobile.png', viewport: 'mobile', url: '/admissions.html', selector: '#contacts .contact-card' },
   { file: 'footer-laptop.png', viewport: 'laptop', url: '/index.html', selector: '.site-footer', isolateComponent: true },
   { file: 'footer-mobile.png', viewport: 'mobile', url: '/index.html', selector: '.site-footer', isolateComponent: true }

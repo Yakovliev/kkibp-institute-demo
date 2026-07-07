@@ -5,7 +5,7 @@
 ## Що є в комплекті
 
 - `index.html` — головна сторінка.
-- `college.html`, `admissions.html`, `students.html`, `alumni.html`, `science.html`, `library.html`, `news.html` — сторінки, успадковані з демоверсії коледжу і готові до адаптації.
+- `institute.html`, `admissions.html`, `students.html`, `alumni.html`, `science.html`, `library.html`, `news.html` — сторінки, успадковані з демоверсії коледжу і готові до адаптації.
 - `css/styles.css` — стилі, адаптивні брейкпоінти та теми день/ніч.
 - `js/main.js` — навігація, мобільне меню, пошук, перемикач теми, рендеринг новин і допоміжні інтерактивні елементи.
 - `js/news-data.js` — спільне джерело даних новин.
