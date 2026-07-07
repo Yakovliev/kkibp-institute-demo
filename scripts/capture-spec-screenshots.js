@@ -53,7 +53,7 @@ const scenarios = [
     }
   },
   { file: 'theme-night-laptop.png', viewport: 'laptop', url: '/index.html', screenshot: 'viewport', theme: 'night' },
-  { file: 'home-about-laptop.png', viewport: 'laptop', url: '/index.html', selector: '#college-about' },
+  { file: 'home-about-laptop.png', viewport: 'laptop', url: '/index.html', selector: '#institute-about' },
   { file: 'home-main-sections-mobile.png', viewport: 'mobile', url: '/index.html', selector: '.main-sections#about' },
   { file: 'home-programs-laptop.png', viewport: 'laptop', url: '/index.html', selector: '#programs' },
   {
@@ -71,7 +71,7 @@ const scenarios = [
   {
     file: 'news-archive-mobile-filtered.png',
     viewport: 'mobile',
-    url: '/news.html?tag=it-science',
+    url: '/news.html?tag=information-food-technologies',
     screenshot: 'viewport',
     prepare: async (page) => {
       await page.locator('[data-news-filter]').scrollIntoViewIfNeeded();

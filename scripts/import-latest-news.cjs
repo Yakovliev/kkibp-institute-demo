@@ -291,7 +291,7 @@ function buildArticleMain(article, allArticles) {
 const template = fs.readFileSync(path.join(root, 'news.html'), 'utf8');
 const articlesData = articles.map(extractArticle);
 
-const newsData = `window.COLLEGE_NEWS = ${JSON.stringify(articlesData.map((article) => ({
+const newsData = `window.INSTITUTE_NEWS = ${JSON.stringify(articlesData.map((article) => ({
   id: article.id,
   loadedAt: article.loadedAt,
   publishedLabel: article.publishedLabel,

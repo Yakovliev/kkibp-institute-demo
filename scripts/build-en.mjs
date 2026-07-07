@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
-const cssVersion = 'college-subpages-20260630';
-const scriptVersion = 'college-subpages-20260630';
+const cssVersion = 'institute-pages-20260707';
+const scriptVersion = 'institute-pages-20260707';
 const sectionFiles = ['institute.html', 'admissions.html', 'students.html', 'alumni.html', 'science.html', 'library.html'];
 const shellOnlyFiles = ['index.html', 'news.html'];
 const allFiles = [...shellOnlyFiles, ...sectionFiles];
@@ -245,14 +245,14 @@ const translations = {
   'Сторінка для правил поведінки, навчального режиму й організації освітнього процесу.': 'A page for conduct rules, study mode and organization of the educational process.',
   'Інформація про поселення, умови проживання та контакти щодо гуртожитку.': 'Information about accommodation, living conditions and dormitory contacts.',
   'Сторінка для творчих студій, подій, гуртків і студентських мистецьких ініціатив.': 'A page for creative studios, events, clubs and student art initiatives.',
-  'Інформація про спортивні секції, тренування, змагання та команди коледжу.': 'Information about sports sections, training, competitions and college teams.',
+  'Інформація про спортивні секції, тренування, змагання та команди інституту.': 'Information about sports sections, training, competitions and institute teams.',
   'Можливості мовного навчання, розмовні клуби та додаткові курси.': 'Language learning opportunities, speaking clubs and additional courses.',
   'Сторінка для правової підтримки, консультацій і студентських юридичних ініціатив.': 'A page for legal support, consultations and student legal initiatives.',
   'Матеріали про доброчесність, повідомлення, політики та відповідальних осіб.': 'Materials about integrity, reporting, policies and responsible persons.',
   'Канал звернень щодо прав студентів, безпечного середовища й вирішення конфліктів.': 'A contact channel for student rights, a safe environment and conflict resolution.',
 
   'Спільнота, яка залишається поруч': 'A community that stays close',
-  'Зберігайте зв’язок із коледжем, діліться досвідом і підтримуйте нове покоління студентів.': 'Stay connected with the college, share experience and support the next generation of students.',
+  'Зберігайте зв’язок із інститутом, діліться досвідом і підтримуйте нове покоління студентів.': 'Stay connected with the institute, share experience and support the next generation of students.',
   'Спільнота': 'Community',
   'Асоціація випускників': 'Alumni association',
   'Успішні випускники': 'Successful alumni',
@@ -359,7 +359,7 @@ const replaceText = (html) => orderedTranslations.reduce(
 );
 
 const prefixRootPaths = (html) => html
-  .replace(/(href|src)="(assets|css|js|institute|college|admissions|students|alumni|science|library)\//g, '$1="../$2/')
+  .replace(/(href|src)="(assets|css|js|institute|admissions|students|alumni|science|library)\//g, '$1="../$2/')
   .replace(/srcset="(assets)\//g, 'srcset="../$1/');
 
 const extractMain = (html) => html.match(/<main[\s\S]*?<\/main>/)?.[0] || '';
@@ -402,20 +402,41 @@ const translateFromUkrainian = async (file) => {
   html = patchHead(html, file);
   html = prefixRootPaths(html);
   html = patchLanguageSwitches(html, file);
-  html = html.replace(/&hl=uk/g, '&hl=en');
+  html = html.replace(/(&amp;|&)hl=uk/g, '$1hl=en');
   html = replaceText(html);
   return html;
 };
 
-const updateNewsArchiveUi = (html) => html.replace(
-  '<div class="news-grid" data-news-list data-news-excerpt-length="185"></div>',
-  '<div class="news-grid" data-news-list data-news-excerpt-length="185" data-news-page-size="9"></div><nav class="news-pagination" data-news-pagination aria-label="News pages" hidden></nav>'
-);
+const updateNewsArchiveUi = (html) => {
+  const filter = '<div class="news-filter" data-news-filter role="group" aria-label="News filter by department"></div>';
+  let output = html.replace(
+    /<div class="news-filter" data-news-filter role="group" aria-label="[^"]*"><\/div>/,
+    filter
+  );
+  if (!output.includes('data-news-filter')) {
+    output = output.replace(/<div class="news-grid" data-news-list/, `${filter}<div class="news-grid" data-news-list`);
+  }
+  return output.replace(
+    /<div class="news-grid" data-news-list data-news-excerpt-length="185"(?: data-news-page-size="9")?><\/div>(?:<nav class="news-pagination" data-news-pagination aria-label="News pages" hidden><\/nav>)?/,
+    '<div class="news-grid" data-news-list data-news-excerpt-length="185" data-news-page-size="9"></div><nav class="news-pagination" data-news-pagination aria-label="News pages" hidden></nav>'
+  );
+};
 
 const updateHomeLinks = (html) => html
   .replace(/href="admissions\.html#apply"/g, 'href="admissions.html"')
   .replace(/href="admissions\.html#programs"/g, 'href="admissions.html#educational-programs"')
-  .replace(/href="admissions\.html#documents"/g, 'href="admissions.html#admission-info"');
+  .replace(/href="admissions\.html#documents"/g, 'href="admissions.html#admission-info"')
+  .replace(/Real college community/g, 'Active community')
+  .replace(/Photos of college life/g, 'Photos of institute life')
+  .replace(/near the college building/g, 'near the institute building')
+  .replace(/creative college event/g, 'creative institute event')
+  .replace(/during a college event/g, 'during an institute event')
+  .replace(/About the college/g, 'About the institute')
+  .replace(/A college for a confident professional start/g, 'An institute for a confident professional start')
+  .replace(/Key college strengths/g, 'Key institute strengths')
+  .replace(/More about the college/g, 'More about the institute')
+  .replace(/getting to know the college begins/g, 'getting to know the institute begins')
+  .replace(/College life/g, 'Institute life');
 
 await mkdir('en', { recursive: true });
 

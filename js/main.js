@@ -331,7 +331,7 @@
 
   document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 
-  const newsItems = Array.isArray(window.COLLEGE_NEWS) ? window.COLLEGE_NEWS : [];
+  const newsItems = Array.isArray(window.INSTITUTE_NEWS) ? window.INSTITUTE_NEWS : [];
   const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, char => ({
     '&': '&amp;',
     '<': '&lt;',
@@ -340,6 +340,14 @@
     "'": '&#39;'
   }[char]));
   const normalizeNewsDate = (item) => Date.parse(item.loadedAt || item.publishedAt || '') || 0;
+  const newsDateFormatter = isEnglish
+    ? new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' })
+    : null;
+  const newsDateLabel = (item) => {
+    if (!isEnglish) return item.publishedLabel || '';
+    const timestamp = normalizeNewsDate(item);
+    return timestamp ? newsDateFormatter.format(new Date(timestamp)) : item.publishedLabel || '';
+  };
   const resolveNewsAsset = (path) => {
     if (!path || /^(https?:|\/|\.\/|\.\.\/)/.test(path)) return path;
     return `${siteRoot}${path}`;
@@ -352,13 +360,13 @@
     const end = lastSpace > maxLength * 0.65 ? lastSpace : maxLength;
     return `${text.slice(0, end).replace(/[.,;:!?…]+$/, '')}...`;
   };
-  // Department (циклова комісія) tags — the "Циклова комісія" prefix is intentionally dropped.
+  // News filter tags based on the current institute departments.
   const NEWS_TAGS = [
-    { id: 'oblik-finance', uk: 'Обліково-фінансові дисципліни', en: 'Accounting and Finance' },
-    { id: 'economics-trade', uk: 'Економіка, торгівля та маркетинг', en: 'Economics, Trade and Marketing' },
-    { id: 'social-law', uk: 'Соціально-гуманітарні та правознавчі дисципліни', en: 'Social, Humanities and Law' },
-    { id: 'it-science', uk: 'Інформаційно-технічні та природничі дисципліни', en: 'IT and Natural Sciences' },
-    { id: 'food-hospitality', uk: 'Харчові технології, організація готельно-ресторанного бізнесу', en: 'Food Technology and Hospitality' }
+    { id: 'finance-accounting', uk: 'Кафедра фінансів і обліку', en: 'Department of Finance and Accounting' },
+    { id: 'law', uk: 'Кафедра права', en: 'Department of Law' },
+    { id: 'entrepreneurship-trade-logistics', uk: 'Кафедра підприємництва, торгівлі та логістики', en: 'Department of Entrepreneurship, Trade and Logistics' },
+    { id: 'social-humanities', uk: 'Кафедра соціально-гуманітарних дисциплін', en: 'Department of Social and Humanities Disciplines' },
+    { id: 'information-food-technologies', uk: 'Кафедра інформаційних та харчових технологій', en: 'Department of Information and Food Technologies' }
   ];
   const NEWS_TAG_MAP = Object.fromEntries(NEWS_TAGS.map(t => [t.id, t]));
   const newsTagLabel = (id) => {
@@ -368,7 +376,7 @@
   const renderNewsTagLink = (id) => {
     const label = newsTagLabel(id);
     if (!label) return '';
-    const href = resolveSiteHref(`news.html?tag=${encodeURIComponent(id)}`);
+    const href = `news.html?tag=${encodeURIComponent(id)}`;
     return `<a class="news-tag" href="${escapeHtml(href)}" title="${escapeHtml(label)}">${escapeHtml(label)}</a>`;
   };
   // Card view: keep tags on a single line — first tag (truncated if needed) plus a "+N" chip.
@@ -428,8 +436,9 @@
       : '<div class="news-media" aria-hidden="true"></div>';
     const excerpt = item.excerpt || item.content || item.body || '';
     const tags = renderNewsTagsCompact(item.tags);
-    const meta = (item.publishedLabel || tags)
-      ? `<div class="news-meta">${item.publishedLabel ? `<span>${escapeHtml(item.publishedLabel)}</span>` : ''}${tags}</div>`
+    const publishedLabel = newsDateLabel(item);
+    const meta = (publishedLabel || tags)
+      ? `<div class="news-meta">${publishedLabel ? `<span>${escapeHtml(publishedLabel)}</span>` : ''}${tags}</div>`
       : '';
 
     return `<article class="news-card"${idAttr}>${image}<div class="news-content">${meta}<h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(truncateNewsText(excerpt, excerptLength))}</p><a class="text-link" href="${escapeHtml(href)}"${linkAttrs}>${ui.readFull} <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 5h5v5M10 14 19 5M19 13v6H5V5h6"/></svg></a></div></article>`;
@@ -468,7 +477,7 @@
     // Department filter bar (rendered only where a container opts in, e.g. the news page).
     const renderFilterBars = () => {
       const button = (id, label, isActive) => {
-        const href = resolveSiteHref(id ? `news.html?tag=${encodeURIComponent(id)}` : 'news.html');
+        const href = id ? `news.html?tag=${encodeURIComponent(id)}` : 'news.html';
         const cls = `news-filter__btn${isActive ? ' is-active' : ''}`;
         const current = isActive ? ' aria-current="true"' : '';
         return `<a class="${cls}" href="${escapeHtml(href)}"${current}>${escapeHtml(label)}</a>`;
@@ -495,7 +504,7 @@
 
         grid.innerHTML = visibleItems.length
           ? visibleItems.map(item => renderNewsCard(item, excerptLength)).join('')
-          : `<p class="news-empty">${isEnglish ? 'No news for this department yet.' : 'Поки немає новин за цією цикловою комісією.'}</p>`;
+          : `<p class="news-empty">${isEnglish ? 'No news for this department yet.' : 'Поки немає новин стосовно цієї кафедри'}</p>`;
         renderNewsPagination(grid.parentElement?.querySelector('[data-news-pagination]'), currentPage, totalPages, activeTag);
       });
       document.querySelectorAll('[data-news-count]').forEach(element => {
@@ -543,12 +552,12 @@
     }
   }
 
-  document.querySelectorAll('[data-college-carousel]').forEach(carousel => {
-    const track = carousel.querySelector('.college-photo-track');
-    const slides = [...carousel.querySelectorAll('.college-photo-track img')];
+  document.querySelectorAll('[data-institute-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('.institute-photo-track');
+    const slides = [...carousel.querySelectorAll('.institute-photo-track img')];
     const prev = carousel.querySelector('[data-carousel-prev]');
     const next = carousel.querySelector('[data-carousel-next]');
-    const dotsWrap = carousel.querySelector('.college-carousel-dots');
+    const dotsWrap = carousel.querySelector('.institute-carousel-dots');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let dots = [...carousel.querySelectorAll('[data-carousel-dot]')];
     let active = 0;

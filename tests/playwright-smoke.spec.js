@@ -19,16 +19,16 @@ test('home page renders without horizontal overflow', async ({ page }) => {
 test('home about-institute carousel renders and can be controlled', async ({ page }) => {
   await page.goto('/index.html');
 
-  const section = page.locator('#college-about');
-  const carousel = section.locator('[data-college-carousel]');
-  const slides = carousel.locator('.college-photo-track img');
+  const section = page.locator('#institute-about');
+  const carousel = section.locator('[data-institute-carousel]');
+  const slides = carousel.locator('.institute-photo-track img');
   const dots = carousel.locator('[data-carousel-dot]');
 
   await expect(section.getByRole('heading', { name: 'Інститут для впевненого професійного старту' })).toBeVisible();
   await section.scrollIntoViewIfNeeded();
   await expect(slides).toHaveCount(4);
   await expect(dots).toHaveCount(4);
-  await expect(section.locator('.college-combo-more')).toHaveAttribute('href', 'institute/general-info/about-institute.html');
+  await expect(section.locator('.institute-combo-more')).toHaveAttribute('href', 'institute/general-info/about-institute.html');
 
   const imageSources = await slides.evaluateAll((images) => images.map((image) => new URL(image.getAttribute('src'), window.location.href).href));
   for (const src of imageSources) {
@@ -39,7 +39,7 @@ test('home about-institute carousel renders and can be controlled', async ({ pag
   const activeBefore = await dots.evaluateAll((buttons) => buttons.findIndex((button) => button.classList.contains('is-active')));
   await carousel.getByRole('button', { name: 'Наступне фото' }).click();
   const activeAfter = await dots.evaluateAll((buttons) => buttons.findIndex((button) => button.classList.contains('is-active')));
-  const trackTransform = await carousel.locator('.college-photo-track').evaluate((track) => track.style.transform);
+  const trackTransform = await carousel.locator('.institute-photo-track').evaluate((track) => track.style.transform);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
 
   expect(activeAfter).toBe((activeBefore + 1) % 4);
@@ -206,9 +206,9 @@ test('header actions and news article metadata keep the updated layout', async (
 test('english home mirrors the accepted home structure', async ({ page }) => {
   await page.goto('/en/index.html');
 
-  const about = page.locator('#college-about');
-  await expect(about.getByRole('heading', { name: 'A college for a confident professional start' })).toBeVisible();
-  await expect(about.locator('.college-photo-track img')).toHaveCount(4);
+  const about = page.locator('#institute-about');
+  await expect(about.getByRole('heading', { name: 'An institute for a confident professional start' })).toBeVisible();
+  await expect(about.locator('.institute-photo-track img')).toHaveCount(4);
 
   const mainSections = page.locator('.main-sections#about');
   const cards = mainSections.locator('.main-section-card');
@@ -229,20 +229,34 @@ test('english home mirrors the accepted home structure', async ({ page }) => {
   await expect(page.getByRole('link', { name: /All news/ })).toHaveClass(/main-sections-contact--filled/);
 });
 
-test('english news page uses the shared card feed without legacy filters', async ({ page }) => {
+test('english news page uses the shared card feed with department filters', async ({ page }) => {
   await page.goto('/en/news.html');
 
   const grid = page.locator('[data-news-list]');
   await expect(page.locator('[data-news-count]')).toHaveText('12');
-  await expect(page.locator('.filter-bar')).toHaveCount(0);
+  await expect(page.locator('[data-news-filter]')).toBeVisible();
+  await expect(page.locator('[data-news-filter] .news-filter__btn')).toHaveText([
+    'All',
+    'Department of Finance and Accounting',
+    'Department of Law',
+    'Department of Entrepreneurship, Trade and Logistics',
+    'Department of Social and Humanities Disciplines',
+    'Department of Information and Food Technologies'
+  ]);
   await expect(grid.locator('.news-card')).toHaveCount(9);
   await expect(grid.locator('.news-media img')).toHaveCount(9);
   await expect(grid.locator('.news-media-label')).toHaveCount(0);
   await expect(grid.locator('.news-meta')).toHaveCount(9);
+  await expect(grid.locator('.news-meta').first()).toContainText('June');
   await expect(page.locator('[data-news-pagination] a')).toHaveText(['1', '2']);
   await expect(page.locator('[data-news-pagination] a[aria-current="page"]')).toHaveText('1');
   await expect(grid.locator('.text-link').first()).toContainText('Read in full');
   await expect(grid.locator('.text-link').first()).toHaveAttribute('href', /\.\.\/news-4875-.*\.html$/);
+
+  await page.getByLabel('News filter by department').getByRole('link', { name: 'Department of Law' }).click();
+  await expect(page).toHaveURL(/\/en\/news\.html\?tag=law$/);
+  await expect(page.locator('[data-news-count]')).toHaveText('5');
+  await expect(grid.locator('.news-card')).toHaveCount(5);
 
   await page.goto('/en/news.html?page=2');
   const secondPageCards = page.locator('[data-news-list] .news-card');
@@ -281,25 +295,25 @@ test('primary menu toggles submenus without navigating', async ({ page }) => {
   if (await navToggle.isVisible()) await navToggle.click();
 
   const startUrl = page.url();
-  const collegeToggle = page.locator('button[aria-controls="menu-0"]');
+  const instituteToggle = page.locator('button[aria-controls="menu-0"]');
   const applicantsToggle = page.locator('button[aria-controls="menu-1"]');
   const scienceToggle = page.locator('button[aria-controls="menu-4"]');
-  const collegeMenu = page.locator('#menu-0');
+  const instituteMenu = page.locator('#menu-0');
   const applicantsMenu = page.locator('#menu-1');
   const scienceMenu = page.locator('#menu-4');
 
-  await collegeToggle.click();
+  await instituteToggle.click();
   await expect(page).toHaveURL(startUrl);
-  await expect(collegeToggle).toHaveAttribute('aria-expanded', 'true');
-  await expect(collegeMenu).toBeVisible();
-  await expect(collegeMenu.locator('a[href*="institute/"]')).toHaveCount(24);
-  await expect(collegeMenu.getByRole('link', { name: 'Про Інститут' })).toHaveAttribute('href', 'institute/general-info/about-institute.html');
-  await expect(collegeMenu.getByRole('link', { name: 'Статут Інституту' })).toHaveAttribute('href', 'institute/main-info/statute.html');
-  await expect(collegeMenu.getByRole('link', { name: 'Центр розвитку професійної кар’єри' })).toHaveAttribute('href', 'institute/activity/professional-career-development-center.html');
+  await expect(instituteToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(instituteMenu).toBeVisible();
+  await expect(instituteMenu.locator('a[href*="institute/"]')).toHaveCount(24);
+  await expect(instituteMenu.getByRole('link', { name: 'Про Інститут' })).toHaveAttribute('href', 'institute/general-info/about-institute.html');
+  await expect(instituteMenu.getByRole('link', { name: 'Статут Інституту' })).toHaveAttribute('href', 'institute/main-info/statute.html');
+  await expect(instituteMenu.getByRole('link', { name: 'Центр розвитку професійної кар’єри' })).toHaveAttribute('href', 'institute/activity/professional-career-development-center.html');
 
   await applicantsToggle.click();
-  await expect(collegeToggle).toHaveAttribute('aria-expanded', 'false');
-  await expect(collegeMenu).toBeHidden();
+  await expect(instituteToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(instituteMenu).toBeHidden();
   await expect(applicantsToggle).toHaveAttribute('aria-expanded', 'true');
   await expect(applicantsMenu).toBeVisible();
   await expect(applicantsMenu.locator('.mega-group h3')).toHaveText(['Вступ', 'Освітні програми']);
@@ -331,17 +345,17 @@ test('mobile submenu uses measured accordion motion', async ({ page }, testInfo)
   await page.goto('/index.html');
   await page.locator('.nav-toggle').click();
 
-  const collegeToggle = page.getByRole('button', { name: /Інститут/ }).first();
+  const instituteToggle = page.getByRole('button', { name: /Інститут/ }).first();
   const applicantsToggle = page.getByRole('button', { name: /Абітурієнту/ }).first();
-  const collegeMenu = page.locator('#menu-0');
+  const instituteMenu = page.locator('#menu-0');
   const applicantsMenu = page.locator('#menu-1');
 
-  await collegeToggle.click();
-  await expect(collegeToggle).toHaveAttribute('aria-expanded', 'true');
-  await expect(collegeMenu).toBeVisible();
+  await instituteToggle.click();
+  await expect(instituteToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(instituteMenu).toBeVisible();
   await page.waitForTimeout(320);
 
-  const openMetrics = await collegeMenu.evaluate((menu) => {
+  const openMetrics = await instituteMenu.evaluate((menu) => {
     const style = getComputedStyle(menu);
     return {
       ariaHidden: menu.getAttribute('aria-hidden'),
@@ -366,12 +380,12 @@ test('mobile submenu uses measured accordion motion', async ({ page }, testInfo)
   expect(Math.abs(parseFloat(openMetrics.customHeight) - openMetrics.scrollHeight)).toBeLessThanOrEqual(2);
 
   await applicantsToggle.click();
-  await expect(collegeToggle).toHaveAttribute('aria-expanded', 'false');
-  await expect(collegeMenu).toBeHidden();
+  await expect(instituteToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(instituteMenu).toBeHidden();
   await expect(applicantsToggle).toHaveAttribute('aria-expanded', 'true');
   await expect(applicantsMenu).toBeVisible();
 
-  const closedMetrics = await collegeMenu.evaluate((menu) => ({
+  const closedMetrics = await instituteMenu.evaluate((menu) => ({
     ariaHidden: menu.getAttribute('aria-hidden'),
     inert: menu.inert,
     maxHeight: getComputedStyle(menu).maxHeight,
@@ -475,19 +489,19 @@ test('navigation remains visible when opened after page scroll', async ({ page }
     expect(shellMetrics.bottom).toBeGreaterThan(0);
     expect(shellMetrics.top).toBeLessThan(shellMetrics.viewportHeight);
 
-    const collegeToggle = page.getByRole('button', { name: /Інститут/ }).first();
-    await collegeToggle.click();
+    const instituteToggle = page.getByRole('button', { name: /Інститут/ }).first();
+    await instituteToggle.click();
     await expect(page.locator('#menu-0')).toBeVisible();
     return;
   }
 
-  const collegeToggle = page.getByRole('button', { name: /Інститут/ }).first();
-  const collegeMenu = page.locator('#menu-0');
+  const instituteToggle = page.getByRole('button', { name: /Інститут/ }).first();
+  const instituteMenu = page.locator('#menu-0');
 
-  await collegeToggle.click();
-  await expect(collegeMenu).toBeVisible();
+  await instituteToggle.click();
+  await expect(instituteMenu).toBeVisible();
 
-  const menuMetrics = await collegeMenu.evaluate((menu) => {
+  const menuMetrics = await instituteMenu.evaluate((menu) => {
     const rect = menu.getBoundingClientRect();
     return {
       bottom: rect.bottom,

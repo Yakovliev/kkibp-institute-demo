@@ -1,4 +1,4 @@
-window.COLLEGE_NEWS = [
+window.INSTITUTE_NEWS = [
   {
     "id": "4875-k-i-n-dotsent-yuliya-rudenko-vzyala-uchast-u-vebinari-do-dnya-konstytutsiyi-ukrayiny",
     "loadedAt": "2026-06-29T10:47:51+03:00",
@@ -13,7 +13,8 @@ window.COLLEGE_NEWS = [
       16
     ],
     "tags": [
-      "economics-trade"
+      "social-humanities",
+      "law"
     ]
   },
   {
@@ -21,7 +22,7 @@ window.COLLEGE_NEWS = [
     "loadedAt": "2026-06-29T10:46:07+03:00",
     "publishedLabel": "29 червня 2026",
     "title": "ДЕНЬ ВІДКРИТИХ ДВЕРЕЙ – КРОК ДО МАЙБУТНЬОЇ ПРОФЕСІЇ",
-    "excerpt": "27 червня у Приватному закладі «Київський кооперативний інститутбізнесу і права» та Економіко-правовому фаховому коледжі відбувся День відкритих дверей, який зібрав...",
+    "excerpt": "27 червня у Приватному закладі «Київський кооперативний інститут бізнесу і права» та Економіко-правовому фаховому коледжі відбувся День відкритих дверей, який зібрав...",
     "image": "assets/news/latest/4874-den-vidkrytykh-dverey-krok-do-maybutnoyi-profesiyi-01.jpg",
     "alt": "зображення viber 2026 06 27 11 02 33 364",
     "url": "news-4874-den-vidkrytykh-dverey-krok-do-maybutnoyi-profesiyi.html",
@@ -31,8 +32,9 @@ window.COLLEGE_NEWS = [
       14
     ],
     "tags": [
-      "it-science",
-      "economics-trade"
+      "finance-accounting",
+      "entrepreneurship-trade-logistics",
+      "information-food-technologies"
     ]
   },
   {
@@ -48,9 +50,9 @@ window.COLLEGE_NEWS = [
       11
     ],
     "tags": [
-      "oblik-finance",
-      "it-science",
-      "economics-trade"
+      "entrepreneurship-trade-logistics",
+      "information-food-technologies",
+      "finance-accounting"
     ]
   },
   {
@@ -68,7 +70,8 @@ window.COLLEGE_NEWS = [
       11
     ],
     "tags": [
-      "social-law"
+      "finance-accounting",
+      "entrepreneurship-trade-logistics"
     ]
   },
   {
@@ -84,8 +87,9 @@ window.COLLEGE_NEWS = [
       6
     ],
     "tags": [
-      "food-hospitality",
-      "social-law"
+      "law",
+      "social-humanities",
+      "information-food-technologies"
     ]
   },
   {
@@ -103,9 +107,8 @@ window.COLLEGE_NEWS = [
       9
     ],
     "tags": [
-      "economics-trade",
-      "food-hospitality",
-      "social-law"
+      "information-food-technologies",
+      "finance-accounting"
     ]
   },
   {
@@ -122,7 +125,8 @@ window.COLLEGE_NEWS = [
       7
     ],
     "tags": [
-      "it-science"
+      "law",
+      "social-humanities"
     ]
   },
   {
@@ -138,8 +142,8 @@ window.COLLEGE_NEWS = [
       14
     ],
     "tags": [
-      "oblik-finance",
-      "it-science"
+      "law",
+      "social-humanities"
     ]
   },
   {
@@ -156,9 +160,8 @@ window.COLLEGE_NEWS = [
       14
     ],
     "tags": [
-      "social-law",
-      "oblik-finance",
-      "it-science"
+      "information-food-technologies",
+      "entrepreneurship-trade-logistics"
     ]
   },
   {
@@ -174,7 +177,7 @@ window.COLLEGE_NEWS = [
       6
     ],
     "tags": [
-      "food-hospitality"
+      "information-food-technologies"
     ]
   },
   {
@@ -192,8 +195,7 @@ window.COLLEGE_NEWS = [
       13
     ],
     "tags": [
-      "economics-trade",
-      "food-hospitality"
+      "social-humanities"
     ]
   },
   {
@@ -210,9 +212,9 @@ window.COLLEGE_NEWS = [
       3
     ],
     "tags": [
-      "it-science",
-      "economics-trade",
-      "food-hospitality"
+      "social-humanities",
+      "law",
+      "entrepreneurship-trade-logistics"
     ]
   }
 ];
