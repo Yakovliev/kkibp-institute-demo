@@ -1,5 +1,8 @@
 const { test, expect } = require('@playwright/test');
 
+const ukrainianInstituteName = 'Приватний заклад "Київський кооперативний інститут бізнесу і права"';
+const englishInstituteName = 'Private Institute "Kyiv Cooperative Institute of Business and Law"';
+
 test('home page renders without horizontal overflow', async ({ page }) => {
   await page.goto('/index.html');
   await expect(page).toHaveTitle(/Приватний заклад/);
@@ -14,6 +17,43 @@ test('home page renders without horizontal overflow', async ({ page }) => {
   }));
 
   expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth);
+});
+
+test('header and footer use the correct localized institute names', async ({ page }, testInfo) => {
+  await page.goto('/index.html');
+
+  const ukrainianHeaderBrand = page.locator('.site-header .brand').first();
+  const ukrainianFooterBrand = page.locator('.site-footer .brand').first();
+  await expect(ukrainianHeaderBrand.locator('.brand-title-main')).toHaveText(ukrainianInstituteName);
+  await expect(ukrainianHeaderBrand.locator('.brand-title-translation')).toHaveText(englishInstituteName);
+  await expect(ukrainianFooterBrand.locator('.brand-title-main')).toHaveText(ukrainianInstituteName);
+  await expect(ukrainianFooterBrand.locator('.brand-title-translation')).toHaveText(englishInstituteName);
+
+  const fontSizes = await page.evaluate(() => {
+    const size = (selector) => parseFloat(getComputedStyle(document.querySelector(selector)).fontSize);
+    return {
+      headerMain: size('.site-header .brand-title-main'),
+      headerTranslation: size('.site-header .brand-title-translation'),
+      footerMain: size('.site-footer .brand-title-main'),
+      footerTranslation: size('.site-footer .brand-title-translation')
+    };
+  });
+
+  if (testInfo.project.name === 'chromium-mobile') {
+    expect(fontSizes.headerTranslation).toBeLessThan(fontSizes.headerMain);
+  } else {
+    expect(Math.abs(fontSizes.headerTranslation - fontSizes.headerMain)).toBeLessThan(0.1);
+    expect(Math.abs(fontSizes.footerTranslation - fontSizes.footerMain)).toBeLessThan(0.1);
+  }
+
+  await page.goto('/en/index.html');
+
+  const englishHeaderBrand = page.locator('.site-header .brand').first();
+  const englishFooterBrand = page.locator('.site-footer .brand').first();
+  await expect(englishHeaderBrand.locator('.brand-title-main')).toHaveText(englishInstituteName);
+  await expect(englishFooterBrand.locator('.brand-title-main')).toHaveText(englishInstituteName);
+  await expect(page.locator('.brand-title-translation')).toHaveCount(0);
+  await expect(page).toHaveTitle(`Home - ${englishInstituteName}`);
 });
 
 test('home about-institute carousel renders and can be controlled', async ({ page }) => {

@@ -27,7 +27,7 @@
 | `docs/decisions/DDR-013-news-department-tags-and-filter.md` | `docs/college-docs/decisions/DDR-014-news-department-tags-and-filter.md` | Перенесено як робочу вимогу для адаптації інституту. |
 | `docs/decisions/DDR-014-local-inter-typography.md` | `docs/college-docs/decisions/DDR-016-local-inter-typography.md` | Перенесено як робочу вимогу для адаптації інституту. |
 | `docs/decisions/DDR-015-standard-social-preview.md` | `docs/college-docs/decisions/DDR-017-standard-social-preview.md` | Перенесено як робочу вимогу для адаптації інституту. |
-| `docs/decisions/DDR-016-institute-brand-name.md` | Нова вимога від 2026-07-07 | Прийнято як активне брендове рішення для демоверсії інституту. |
+| `docs/decisions/DDR-016-institute-brand-name.md` | Нова вимога від 2026-07-07, оновлена 2026-07-24 | Прийнято як активне рішення щодо повної англійської назви, двомовного бренду й адаптивної типографіки. |
 | `docs/decisions/DDR-017-institute-navigation-and-hero-logo.md` | Нова вимога від 2026-07-07 | Прийнято як активне рішення для навігації, зовнішнього переходу до коледжу і великого hero-логотипа. |
 | `docs/decisions/DDR-018-navigation-taxonomy-update.md` | Нова вимога від 2026-07-07 | Прийнято як активну структуру header/footer і hub-сторінок. |
 

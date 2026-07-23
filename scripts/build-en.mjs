@@ -1,13 +1,13 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
-const cssVersion = 'institute-pages-20260707';
+const cssVersion = 'institute-brand-type-20260724';
 const scriptVersion = 'institute-pages-20260707';
 const sectionFiles = ['institute.html', 'admissions.html', 'students.html', 'alumni.html', 'science.html', 'library.html'];
 const shellOnlyFiles = ['index.html', 'news.html'];
 const allFiles = [...shellOnlyFiles, ...sectionFiles];
 const siteBaseUrl = 'https://yakovliev.github.io/kkibp-institute-demo';
-const instituteName = 'Kyiv Cooperative Institute of Business and Law';
-const instituteNameHtml = 'Kyiv Cooperative Institute of Business and Law';
+const instituteName = 'Private Institute "Kyiv Cooperative Institute of Business and Law"';
+const instituteNameHtml = 'Private Institute &quot;Kyiv Cooperative Institute of Business and Law&quot;';
 
 const pageMeta = {
   'index.html': {
@@ -92,7 +92,7 @@ const translations = {
   'вул. Юлії Здановської, 18, м. Київ, 03022': '18 Yulii Zdanovskoi St., Kyiv, 03022',
   'Карта розташування Приватного закладу "Київський кооперативний інститут бізнесу і права"': `Map showing the location of ${instituteName}`,
   'Карта розташування Приватного закладу &quot;Київський кооперативний інститут бізнесу і права&quot;': `Map showing the location of ${instituteNameHtml}`,
-  'Карта розташування Kyiv Cooperative Institute of Business and Law': `Map showing the location of ${instituteName}`,
+  'Карта розташування Private Institute "Kyiv Cooperative Institute of Business and Law"': `Map showing the location of ${instituteName}`,
   'Карта розташування приймальної комісії': 'Map showing the admissions office location',
 
   'Корисні матеріали, документи та сервіси розділу.': 'Useful materials, documents and services for this section.',
@@ -358,6 +358,11 @@ const replaceText = (html) => orderedTranslations.reduce(
   html
 );
 
+const removeSupplementalEnglishBrand = (html) => html.replace(
+  /<span class="brand-title-translation" lang="en">[\s\S]*?<\/span>/g,
+  ''
+);
+
 const prefixRootPaths = (html) => html
   .replace(/(href|src)="(assets|css|js|institute|admissions|students|alumni|science|library)\//g, '$1="../$2/')
   .replace(/srcset="(assets)\//g, 'srcset="../$1/');
@@ -402,6 +407,7 @@ const translateFromUkrainian = async (file) => {
   html = patchHead(html, file);
   html = prefixRootPaths(html);
   html = patchLanguageSwitches(html, file);
+  html = removeSupplementalEnglishBrand(html);
   html = html.replace(/(&amp;|&)hl=uk/g, '$1hl=en');
   html = replaceText(html);
   return html;

@@ -26,7 +26,7 @@
 - Дочірні URL тепер починаються з `institute/`; старий внутрішній шлях `college/` не використовується.
 - Наступним рішенням DDR-018 активну навігацію додатково переведено на нову таксономію інституту, зокрема `about-institute.html`, «Про Інститут», «Кафедри» і «Центр розвитку професійної кар’єри».
 - Усі посилання на старий hub `college.html` мають бути замінені на `institute.html`.
-- Майбутній генератор англійських сторінок має використовувати `institute.html` як першу hub-сторінку і назву `Kyiv Cooperative Institute of Business and Law` без префікса `Private Institution`.
+- Майбутній генератор англійських сторінок має використовувати `institute.html` як першу hub-сторінку й офіційну назву `Private Institute "Kyiv Cooperative Institute of Business and Law"`.
 
 ## Перевірка
 - Перевірити Playwright smoke-набір.
