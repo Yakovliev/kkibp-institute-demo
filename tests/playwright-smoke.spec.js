@@ -209,8 +209,9 @@ test('news page paginates the latest twelve materials as nine plus three', async
 });
 
 test('header actions and news article metadata keep the updated layout', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('site-theme', 'night'));
   await page.goto('/news-4873-rozvytok-tsyfrovykh-kompetentnostei-vykladachi-ta-zdobuvachi-osvity-mahisterskoi-opp-komertsiia-ta-torhivlia-uspishno-zavershyly-pidvyshchennia-kvalifikatsii-u-mezhakh-proiektu-prof2it.html');
-  await page.locator('.header-theme').waitFor();
+  await page.locator('.header-tiktok').waitFor({ state: 'attached' });
 
   const boxes = await page.evaluate(() => {
     const rect = (selector) => {
@@ -226,17 +227,33 @@ test('header actions and news article metadata keep the updated layout', async (
 
     return {
       search: rect('.header-search'),
-      theme: rect('.header-theme'),
+      tiktok: rect('.header-tiktok'),
       language: rect('.header-language .language'),
       time: rect('.news-article-meta time'),
       tags: rect('.news-article-tags'),
+      viewportWidth: window.innerWidth,
+      tiktokDisplay: getComputedStyle(document.querySelector('.header-tiktok')).display,
       languageVisible: getComputedStyle(document.querySelector('.header-language')).display !== 'none',
+      theme: document.documentElement.getAttribute('data-theme'),
       overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
     };
   });
 
-  expect(boxes.theme).toEqual(boxes.search);
+  if (boxes.viewportWidth >= 1100) {
+    expect(boxes.tiktok).toEqual(boxes.search);
+  } else {
+    expect(boxes.tiktokDisplay).toBe('none');
+    expect(boxes.tiktok.width).toBe(0);
+    expect(boxes.tiktok.height).toBe(0);
+  }
   if (boxes.languageVisible) expect(boxes.language).toEqual(boxes.search);
+  expect(boxes.theme).toBeNull();
+  await expect(page.locator('.header-theme')).toHaveCount(0);
+  await expect(page.locator('.header-tiktok')).toHaveAttribute('href', 'https://www.tiktok.com/@studparliament_kkibp');
+  await expect(page.locator('.header-tiktok')).toHaveAttribute('aria-label', 'TikTok інституту');
+  await expect(page.locator('.header-tiktok + .header-search')).toHaveCount(1);
+  await expect(page.locator('.footer-social .social-link--tiktok')).toHaveAttribute('href', 'https://www.tiktok.com/@studparliament_kkibp');
+  await expect(page.locator('.footer-social .social-links a')).toHaveCount(3);
   await expect(page.locator('.news-article-tags .news-tag')).toHaveCount(3);
   expect(boxes.tags.top).toBeGreaterThan(boxes.time.top);
   expect(boxes.overflow).toBe(false);
@@ -246,6 +263,8 @@ test('header actions and news article metadata keep the updated layout', async (
 test('english home mirrors the accepted home structure', async ({ page }) => {
   await page.goto('/en/index.html');
 
+  await expect(page.locator('.header-tiktok')).toHaveAttribute('aria-label', 'Institute TikTok');
+  await expect(page.locator('.footer-social .social-link--tiktok')).toHaveAttribute('aria-label', 'Institute TikTok');
   const about = page.locator('#institute-about');
   await expect(about.getByRole('heading', { name: 'An institute for a confident professional start' })).toBeVisible();
   await expect(about.locator('.institute-photo-track img')).toHaveCount(4);

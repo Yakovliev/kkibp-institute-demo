@@ -22,7 +22,7 @@
 | `docs/decisions/DDR-008-home-and-news-feed-cards.md` | `docs/college-docs/decisions/DDR-009-home-and-news-feed-cards.md` | Перенесено як робочу вимогу для адаптації інституту. |
 | `docs/decisions/DDR-009-news-archive-and-article-pages.md` | `docs/college-docs/decisions/DDR-010-news-archive-and-article-pages.md` | Перенесено як робочу вимогу для адаптації інституту. |
 | `docs/decisions/DDR-010-section-landing-pages.md` | `docs/college-docs/decisions/DDR-011-section-landing-pages.md` | Перенесено як робочу вимогу для адаптації інституту. |
-| `docs/decisions/DDR-011-day-night-theme-toggle.md` | `docs/college-docs/decisions/DDR-012-day-night-theme-toggle.md` | Перенесено як робочу вимогу для адаптації інституту. |
+| `docs/decisions/DDR-011-day-night-theme-toggle.md` | `docs/college-docs/decisions/DDR-012-day-night-theme-toggle.md` | Замінено рішенням DDR-019 від 2026-07-24. |
 | `docs/decisions/DDR-012-sdg-icons-on-news.md` | `docs/college-docs/decisions/DDR-013-sdg-icons-on-news.md` | Перенесено як робочу вимогу для адаптації інституту. |
 | `docs/decisions/DDR-013-news-department-tags-and-filter.md` | `docs/college-docs/decisions/DDR-014-news-department-tags-and-filter.md` | Перенесено як робочу вимогу для адаптації інституту. |
 | `docs/decisions/DDR-014-local-inter-typography.md` | `docs/college-docs/decisions/DDR-016-local-inter-typography.md` | Перенесено як робочу вимогу для адаптації інституту. |
@@ -30,6 +30,7 @@
 | `docs/decisions/DDR-016-institute-brand-name.md` | Нова вимога від 2026-07-07, оновлена 2026-07-24 | Прийнято як активне рішення щодо повної англійської назви, двомовного бренду й адаптивної типографіки. |
 | `docs/decisions/DDR-017-institute-navigation-and-hero-logo.md` | Нова вимога від 2026-07-07 | Прийнято як активне рішення для навігації, зовнішнього переходу до коледжу і великого hero-логотипа. |
 | `docs/decisions/DDR-018-navigation-taxonomy-update.md` | Нова вимога від 2026-07-07 | Прийнято як активну структуру header/footer і hub-сторінок. |
+| `docs/decisions/DDR-019-single-theme-and-tiktok.md` | Нова вимога від 2026-07-24 | Прийнято одну стандартну тему, TikTok замість перемикача теми у header і TikTok третьою соціальною іконкою у footer. |
 
 ## Не перенесено як активні рішення
 - `docs/college-docs/decisions/DDR-003-home-footer-quick-links.md` - у самому архіві має статус "Замінено DDR-004", тому його зміст покривається новим `DDR-003-global-header-footer-static-demo.md`.

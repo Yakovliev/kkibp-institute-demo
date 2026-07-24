@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
-const cssVersion = 'institute-brand-type-20260724';
-const scriptVersion = 'institute-pages-20260707';
+const cssVersion = 'institute-tiktok-20260724';
+const scriptVersion = 'institute-tiktok-20260724';
 const sectionFiles = ['institute.html', 'admissions.html', 'students.html', 'alumni.html', 'science.html', 'library.html'];
 const shellOnlyFiles = ['index.html', 'news.html'];
 const allFiles = [...shellOnlyFiles, ...sectionFiles];

@@ -668,42 +668,78 @@
     onScroll();
   });
 
-  // Day / night theme — toggled from the header sun/moon button.
+  /*
+   * Day / night theme disabled by the accepted institute decision on 2026-07-24.
+   * Keep the implementation commented so it can be restored if the decision changes.
+   *
+   * (() => {
+   *   const root = document.documentElement;
+   *   const stored = localStorage.getItem('site-theme') === 'night' ? 'night' : '';
+   *   const apply = (id) => { if (id) root.dataset.theme = id; else delete root.dataset.theme; };
+   *   apply(stored);
+   *
+   *   const headerActions = document.querySelector('.header-actions');
+   *   if (!headerActions) return;
+   *
+   *   const toggle = document.createElement('button');
+   *   toggle.type = 'button';
+   *   toggle.className = 'icon-button header-theme';
+   *   toggle.innerHTML = `
+   *     <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+   *     <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2.2M12 19.4v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.4 12h2.2M19.4 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>`;
+   *   const searchBtn = headerActions.querySelector('.header-search');
+   *   headerActions.insertBefore(toggle, searchBtn || headerActions.firstChild);
+   *
+   *   const sync = (id) => {
+   *     const night = id === 'night';
+   *     const text = night
+   *       ? (isEnglish ? 'Switch to day theme' : 'Увімкнути денну тему')
+   *       : (isEnglish ? 'Switch to night theme' : 'Увімкнути нічну тему');
+   *     toggle.setAttribute('aria-pressed', String(night));
+   *     toggle.setAttribute('aria-label', text);
+   *     toggle.title = text;
+   *   };
+   *   sync(stored);
+   *
+   *   toggle.addEventListener('click', () => {
+   *     const id = root.dataset.theme === 'night' ? '' : 'night';
+   *     apply(id);
+   *     localStorage.setItem('site-theme', id);
+   *     sync(id);
+   *   });
+   * })();
+   */
+
+  // TikTok replaces the retired theme control in the header and joins footer social links.
   (() => {
-    const root = document.documentElement;
-    // Only 'night' (or empty = day) is supported; ignore any legacy stored theme.
-    const stored = localStorage.getItem('site-theme') === 'night' ? 'night' : '';
-    const apply = (id) => { if (id) root.dataset.theme = id; else delete root.dataset.theme; };
-    apply(stored);
+    const profileUrl = 'https://www.tiktok.com/@studparliament_kkibp';
+    const label = isEnglish ? 'Institute TikTok' : 'TikTok інституту';
+    const icon = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M16.5 3c.2 1.9 1.4 3.5 3.5 4.1v3.2a8.3 8.3 0 0 1-3.5-1v5.3a5.9 5.9 0 1 1-5.1-5.8V12a2.7 2.7 0 1 0 1.9 2.6V3h3.2Z"/></svg>';
+    const createLink = (className) => {
+      const link = document.createElement('a');
+      link.className = className;
+      link.href = profileUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.setAttribute('aria-label', label);
+      link.title = label;
+      link.innerHTML = icon;
+      return link;
+    };
 
     const headerActions = document.querySelector('.header-actions');
-    if (!headerActions) return;
+    if (headerActions && !headerActions.querySelector('.header-tiktok')) {
+      const searchButton = headerActions.querySelector('.header-search');
+      headerActions.insertBefore(
+        createLink('icon-button header-tiktok'),
+        searchButton || headerActions.firstChild
+      );
+    }
 
-    const toggle = document.createElement('button');
-    toggle.type = 'button';
-    toggle.className = 'icon-button header-theme';
-    toggle.innerHTML = `
-      <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-      <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2.2M12 19.4v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.4 12h2.2M19.4 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>`;
-    const searchBtn = headerActions.querySelector('.header-search');
-    headerActions.insertBefore(toggle, searchBtn || headerActions.firstChild);
-
-    const sync = (id) => {
-      const night = id === 'night';
-      const text = night
-        ? (isEnglish ? 'Switch to day theme' : 'Увімкнути денну тему')
-        : (isEnglish ? 'Switch to night theme' : 'Увімкнути нічну тему');
-      toggle.setAttribute('aria-pressed', String(night));
-      toggle.setAttribute('aria-label', text);
-      toggle.title = text;
-    };
-    sync(stored);
-
-    toggle.addEventListener('click', () => {
-      const id = root.dataset.theme === 'night' ? '' : 'night';
-      apply(id);
-      localStorage.setItem('site-theme', id);
-      sync(id);
+    document.querySelectorAll('.footer-social .social-links').forEach(socialLinks => {
+      if (!socialLinks.querySelector('.social-link--tiktok')) {
+        socialLinks.append(createLink('social-link social-link--tiktok'));
+      }
     });
   })();
 })();
